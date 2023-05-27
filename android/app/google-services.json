@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "451499560463",
+    "project_id": "kuliku-3c03c",
+    "storage_bucket": "kuliku-3c03c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451499560463:android:e277af98b87938ae6a1d7a",
+        "android_client_info": {
+          "package_name": "com.kuliku.kuliku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451499560463-gpolbbtq3smad9h0cm8oou5c2pqr4adr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kuliku.kuliku",
+            "certificate_hash": "3a98eb83605f2c66898291e168dc43c51cbf2fad"
+          }
+        },
+        {
+          "client_id": "451499560463-aeaqvjsvht0pudd02tk8a3cic5br7d05.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsgnhdidmw8hdiSQm-W_zfQcUp04aOdgM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "451499560463-aeaqvjsvht0pudd02tk8a3cic5br7d05.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "451499560463-s3t70ji2ah3iqf66ao7s4105puekapsf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kuliku.kuliku"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
