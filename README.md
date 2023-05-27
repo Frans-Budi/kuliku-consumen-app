@@ -19,8 +19,7 @@ Currently, the KuliKu application has not yet reached the production stage, but 
 Here I will try to describe some of the stages in making this big project.
 
 1. UI/UX Design
-
-   The design of this application was made by my colleague. He is [Fazry Rachman Susanto](https://www.behance.net/gallery/171186277/Case-Study_Construction-Mobile-App-KuliKu), a professional UI/UX designer.
+   ...The design of this application was made by my colleague. He is [Fazry Rachman Susanto](https://www.behance.net/gallery/171186277/Case-Study_Construction-Mobile-App-KuliKu), a professional UI/UX designer.
 
 2. Database Design
 
