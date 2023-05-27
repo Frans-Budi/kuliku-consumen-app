@@ -18,23 +18,23 @@ Currently, the KuliKu application has not yet reached the production stage, but 
 
 Here I will try to describe some of the stages in making this big project.
 
-1. UI/UX Design
+1. **UI/UX Design**
 
    The design of this application was made by my colleague. He is [Fazry Rachman Susanto](https://www.behance.net/gallery/171186277/Case-Study_Construction-Mobile-App-KuliKu), a professional UI/UX designer.
 
-2. Database Design
+2. **Database Design**
 
    Here I use a relational database in working on this project. The tool I use to make this design is draw.io
    ![Database Design](https://github.com/Frans-Budi/Frans-Budi/blob/main/KuliKu/Database-Design.png)
 
-3. Create API
+3. **Create [API](https://github.com/Frans-Budi/kuliku-api)**
 
    For the Back-End section, I use the PHP programming language with the framework, namely Laravel. For Testing API I use Postman.
 
-4. Create UI Aplication
+4. **Create UI Aplication**
 
    For the Front-End section, I use the Dart programming language with its framework, Flutter. The focus of this project is Android Applications.
 
-5. Authentication
+5. **Authentication**
 
    For the authentication part, I use firebase to make Phone Verification.
