@@ -1,4 +1,4 @@
-[![Demo Aplication](https://github.com/Frans-Budi/Frans-Budi/blob/main/Thumbnail/Thum-KuliKu.png)](https://www.youtube.com/watch?v=pcpNJclyEYQ)
+[![Demo Aplication](https://github.com/Frans-Budi/Frans-Budi/blob/main/Thumbnail/Thum-KuliKu.jpg)](https://www.youtube.com/watch?v=pcpNJclyEYQ)
 
 # KuliKu Application For Consumen
 
