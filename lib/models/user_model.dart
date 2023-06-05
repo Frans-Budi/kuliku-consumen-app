@@ -5,6 +5,7 @@ class UserModel {
   String? password;
   String? phoneNumber;
   String? profileImage;
+  String? about;
   String? token;
 
   UserModel({
@@ -14,6 +15,7 @@ class UserModel {
     this.password,
     this.phoneNumber,
     this.profileImage,
+    this.about,
     this.token,
   });
 
@@ -24,6 +26,7 @@ class UserModel {
     password = json['password'];
     phoneNumber = json['phone_number'];
     profileImage = json['profile_image'];
+    about = json['about'];
     token = json['token'];
   }
 
@@ -35,6 +38,7 @@ class UserModel {
       'password': password,
       'phone_number': phoneNumber,
       'profile_image': profileImage,
+      'about': about,
       'token': token,
     };
   }

@@ -4,7 +4,7 @@ import 'package:kuliku/utils/dimensions.dart';
 
 import '../utils/colors.dart';
 
-class TextInput extends StatefulWidget {
+class TextInputan extends StatefulWidget {
   final String? hintText;
   final Widget prefixIcon;
   final TextEditingController? controller;
@@ -13,10 +13,10 @@ class TextInput extends StatefulWidget {
   final bool? autoFocus;
   final String? prefixText;
   final bool? readOnly;
-  final Function? onChanged;
+  final Function(String)? onChanged;
   final VoidCallback? onTapSearchBar;
 
-  const TextInput({
+  const TextInputan({
     super.key,
     this.hintText = "",
     required this.prefixIcon,
@@ -31,10 +31,10 @@ class TextInput extends StatefulWidget {
   });
 
   @override
-  State<TextInput> createState() => _TextInputState();
+  State<TextInputan> createState() => _TextInputanState();
 }
 
-class _TextInputState extends State<TextInput> {
+class _TextInputanState extends State<TextInputan> {
   final FocusNode _textFieldFocus = FocusNode();
   Color _backgroundColor = AppColors.backgroundColor;
 
@@ -78,7 +78,7 @@ class _TextInputState extends State<TextInput> {
       autofocus: widget.autoFocus!,
       controller: widget.controller, // <-- Controller
       readOnly: widget.readOnly!, // <-- ReadOnly
-      onChanged: (value) => widget.onChanged, // <-- OnChanged
+      onChanged: widget.onChanged, // <-- OnChanged
       keyboardType: widget.keyboardType,
       inputFormatters: _inputFormatter,
       onTap: widget.onTapSearchBar,

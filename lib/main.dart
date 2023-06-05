@@ -55,7 +55,8 @@ class MyApp extends StatelessWidget {
                 .copyWith(primary: AppColors.primaryColor),
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: snapshot.hasData ? Routes.MAIN : Routes.ON_BOARDING,
+          initialRoute:
+              snapshot.hasData ? Routes.UPDATE_ADDRESS : Routes.ON_BOARDING,
           getPages: AppPages.routes,
         );
       },

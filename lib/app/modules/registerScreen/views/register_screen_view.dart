@@ -7,7 +7,7 @@ import '../../../../Widgets/button_with_logo.dart';
 import '../../../../Widgets/gradient_button.dart';
 import '../../../../Widgets/loading_activity.dart';
 import '../../../../Widgets/small_Text.dart';
-import '../../../../Widgets/text_input.dart';
+import '../../../../Widgets/text_inputan.dart';
 import '../../../../Widgets/text_input_password.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/dimensions.dart';
@@ -61,7 +61,7 @@ class RegisterScreenView extends GetView<RegisterScreenController> {
                     color: AppColors.textBlack,
                   ),
                   SizedBox(height: Dimensions.height8),
-                  TextInput(
+                  TextInputan(
                     controller: controller.nameC,
                     prefixIcon: const Icon(Icons.person),
                     hintText: "Masukkan nama Anda di sini",
@@ -75,7 +75,7 @@ class RegisterScreenView extends GetView<RegisterScreenController> {
                     color: AppColors.textBlack,
                   ),
                   SizedBox(height: Dimensions.height8),
-                  TextInput(
+                  TextInputan(
                     controller: controller.emailC,
                     prefixIcon: const Icon(Icons.email_rounded),
                     hintText: "Masukkan email Anda di sini",

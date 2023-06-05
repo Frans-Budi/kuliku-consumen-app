@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:get/get_utils/src/platform/platform.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kuliku/models/user_model.dart';
 import 'package:kuliku/utils/app_contants.dart';
 import 'package:http/http.dart' as http;
@@ -171,7 +175,7 @@ class AuthService {
       var data = jsonDecode(response.body)['data'];
       UserModel user = UserModel.fromJson(data);
 
-      return data;
+      return user;
     } else {
       // Ambil Message Jika response Error
       String message = jsonDecode(response.body)['message'];
@@ -335,6 +339,41 @@ class AuthService {
         user.token = 'Bearer ${data['token']}';
         return user;
       }
+    }
+  }
+
+  Future<dynamic> updateName({
+    String? name,
+    int? id,
+  }) async {
+    String token = box.read('token');
+    var url = '$baseUrl/update_name/$id';
+    var header = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': token,
+    };
+    var body = jsonEncode({
+      'name': name,
+    });
+
+    var response = await http.put(
+      Uri.parse(url),
+      headers: header,
+      body: body,
+    );
+
+    // print(response.body);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['data'];
+      UserModel user = UserModel.fromJson(data);
+
+      return user;
+    } else {
+      // Ambil Message Jika response Error
+      String message = jsonDecode(response.body)['message'];
+      return message;
     }
   }
 }

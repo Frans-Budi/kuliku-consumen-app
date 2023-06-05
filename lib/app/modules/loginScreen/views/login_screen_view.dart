@@ -6,7 +6,7 @@ import 'package:kuliku/Widgets/button_with_logo.dart';
 import 'package:kuliku/Widgets/gradient_button.dart';
 import 'package:kuliku/Widgets/loading_activity.dart';
 import 'package:kuliku/Widgets/small_text.dart';
-import 'package:kuliku/Widgets/text_input.dart';
+import 'package:kuliku/Widgets/text_inputan.dart';
 import 'package:kuliku/Widgets/text_input_password.dart';
 import 'package:kuliku/utils/colors.dart';
 import 'package:kuliku/utils/dimensions.dart';
@@ -62,7 +62,7 @@ class LoginScreenView extends GetView<LoginScreenController> {
                     color: AppColors.textBlack,
                   ),
                   SizedBox(height: Dimensions.height8),
-                  TextInput(
+                  TextInputan(
                     controller: controller.emailC,
                     prefixIcon: const Icon(Icons.email_rounded),
                     hintText: "Masukkan email Anda di sini",

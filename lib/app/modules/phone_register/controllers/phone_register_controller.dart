@@ -41,4 +41,13 @@ class PhoneRegisterController extends GetxController {
     }
     isLoading.value = false;
   }
+
+  @override
+  void onInit() {
+    if (authProvider.user!.phoneNumber != null) {
+      List<String> phoneNumber = authProvider.user!.phoneNumber!.split(' ');
+      phoneC.text = phoneNumber[1];
+    }
+    super.onInit();
+  }
 }

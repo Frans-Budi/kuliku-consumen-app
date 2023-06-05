@@ -44,8 +44,8 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    InkWell(
-                      onTap: () {},
+                    GestureDetector(
+                      onTap: () => Get.toNamed(Routes.UPDATE_ADDRESS),
                       child: Row(
                         children: [
                           // TODO: dyamic Locations

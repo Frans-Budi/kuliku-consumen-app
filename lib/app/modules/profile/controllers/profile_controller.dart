@@ -3,22 +3,26 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kuliku/Widgets/small_Text.dart';
 import 'package:kuliku/app/routes/app_pages.dart';
+import 'package:kuliku/models/user_model.dart';
 import 'package:kuliku/providers/auth_provider.dart';
 import 'package:kuliku/utils/colors.dart';
 import 'package:kuliku/utils/dimensions.dart';
 
-import '../../../../models/user_model.dart';
+import '../../../../utils/app_contants.dart';
 
 class ProfileController extends GetxController {
   final authProvider = Get.find<AuthProvider>();
   final box = GetStorage();
 
-  RxBool isLoading = false.obs;
+  UserModel? _user;
+  UserModel? get user => _user;
+  set user(UserModel? user) => _user = user;
 
-  Stream<UserModel> userAccount() async* {
-    if (authProvider.user != null) {
-      yield authProvider.user!;
-    }
+  RxBool isLoading = false.obs;
+  RxBool isImageError = false.obs;
+
+  void loadData() {
+    _user = authProvider.user;
   }
 
   Future<void> logout() async {
@@ -74,5 +78,17 @@ class ProfileController extends GetxController {
         ),
       ],
     );
+  }
+
+  @override
+  void onInit() {
+    _user = authProvider.user;
+
+    if (_user!.profileImage != null &&
+        !_user!.profileImage!.contains("https://")) {
+      _user!.profileImage = AppContants.profileImageUrl + _user!.profileImage!;
+    }
+
+    super.onInit();
   }
 }

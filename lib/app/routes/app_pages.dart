@@ -28,6 +28,10 @@ import '../modules/search_result_detail/bindings/search_result_detail_binding.da
 import '../modules/search_result_detail/views/search_result_detail_view.dart';
 import '../modules/transaction/bindings/transaction_binding.dart';
 import '../modules/transaction/views/transaction_view.dart';
+import '../modules/update_address/bindings/update_address_binding.dart';
+import '../modules/update_address/views/update_address_view.dart';
+import '../modules/update_name/bindings/update_name_binding.dart';
+import '../modules/update_name/views/update_name_view.dart';
 
 part 'app_routes.dart';
 
@@ -107,6 +111,18 @@ class AppPages {
       name: _Paths.MAIN,
       page: () => MainView(),
       binding: MainBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPDATE_NAME,
+      page: () => const UpdateNameView(),
+      binding: UpdateNameBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPDATE_ADDRESS,
+      page: () => const UpdateAddressView(),
+      binding: UpdateAddressBinding(),
+      transition: Transition.downToUp,
+      curve: Curves.easeOut,
     ),
   ];
 }

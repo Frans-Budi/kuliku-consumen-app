@@ -16,6 +16,8 @@ abstract class Routes {
   static const SEARCH_RESULT = _Paths.SEARCH_RESULT;
   static const SEARCH_RESULT_DETAIL = _Paths.SEARCH_RESULT_DETAIL;
   static const MAIN = _Paths.MAIN;
+  static const UPDATE_NAME = _Paths.UPDATE_NAME;
+  static const UPDATE_ADDRESS = _Paths.UPDATE_ADDRESS;
 }
 
 abstract class _Paths {
@@ -33,4 +35,6 @@ abstract class _Paths {
   static const SEARCH_RESULT = '/search-result';
   static const SEARCH_RESULT_DETAIL = '/search-result-detail';
   static const MAIN = '/main';
+  static const UPDATE_NAME = '/update-name';
+  static const UPDATE_ADDRESS = '/update-address';
 }

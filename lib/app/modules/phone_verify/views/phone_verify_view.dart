@@ -282,34 +282,26 @@ class PhoneVerifyView extends GetView<PhoneVerifyController> {
                       ],
                     ),
                   ),
+
+                  SizedBox(height: Dimensions.height10 * 6),
+                  // Button Kirim kode
+                  GradientButton(
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        formKey.currentState!.save();
+                        controller.verifyOTP(controller.otp()!);
+                      }
+                    },
+                    height: Dimensions.height10 * 5,
+                    child: SmallText(
+                      text: "Kirim Kode OTP",
+                      color: AppColors.whiteColor,
+                      size: Dimensions.font20,
+                    ),
+                  ),
                 ],
               ),
             ),
-          ),
-          bottomSheet: Wrap(
-            children: [
-              // Button Kirim kode
-              Padding(
-                padding: EdgeInsets.only(
-                    left: Dimensions.height16,
-                    right: Dimensions.height16,
-                    bottom: Dimensions.height8),
-                child: GradientButton(
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                      controller.verifyOTP(controller.otp()!);
-                    }
-                  },
-                  height: Dimensions.height10 * 5,
-                  child: SmallText(
-                    text: "Kirim Kode OTP",
-                    color: AppColors.whiteColor,
-                    size: Dimensions.font20,
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
         // Loading Screen

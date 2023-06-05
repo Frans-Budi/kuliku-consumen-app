@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:kuliku/Widgets/big_text.dart';
-import 'package:kuliku/Widgets/gradient_button.dart';
-import 'package:kuliku/models/user_model.dart';
+import 'package:kuliku/app/modules/update_name/controllers/update_name_controller.dart';
+import 'package:kuliku/app/routes/app_pages.dart';
+import 'package:kuliku/providers/auth_provider.dart';
 import 'package:kuliku/utils/colors.dart';
 import 'package:kuliku/utils/dimensions.dart';
 
-import '../../../../Widgets/small_Text.dart';
-import '../../../../Widgets/text_input.dart';
+import '../../../../Widgets/edit_profile_line.dart';
 import '../controllers/change_profile_controller.dart';
 
 class ChangeProfileView extends GetView<ChangeProfileController> {
@@ -16,11 +17,7 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    final UserModel user = controller.authProvider.user!;
-    List<String>? phoneNumber = user.phoneNumber?.split(' ');
-    controller.nameC.text = user.name!;
-    controller.emailC.text = user.email!;
-    controller.phoneC.text = phoneNumber?[1] ?? "";
+    print(controller.authProvider.box.read('token'));
 
     return Scaffold(
       backgroundColor: AppColors.backgroundActivity,
@@ -46,129 +43,116 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
           size: Dimensions.font20,
         ),
       ),
-      bottomSheet: Wrap(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-              left: Dimensions.height16,
-              right: Dimensions.height16,
-              bottom: Dimensions.height10 * 2,
-            ),
-            child: Obx(
-              () => controller.enableButton.isTrue
-                  ? GradientButton(
-                      onTap: () {},
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: Dimensions.height12),
-                        child: SmallText(
-                          text: "Ubah Profil",
-                          color: AppColors.whiteColor,
-                          size: Dimensions.font18,
-                        ),
-                      ),
-                    )
-                  : Container(
-                      width: double.infinity,
-                      height: Dimensions.height10 * 5,
-                      decoration: BoxDecoration(
-                        color: AppColors.grayColor,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Center(
-                        child: SmallText(
-                          text: "Ubah Profil",
-                          color: AppColors.darkGrayColor,
-                          size: Dimensions.font18,
-                        ),
-                      ),
-                    ),
-            ),
-          ),
-        ],
-      ),
       body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () => SystemChannels.textInput.invokeMethod('TextInput.hide'),
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: Dimensions.height16),
           children: [
             SizedBox(height: Dimensions.height10 * 2),
-            // Input Name
-            SmallText(
-              text: "Nama Lengkap",
-              size: Dimensions.font16,
-              color: AppColors.textBlack,
-            ),
-            SizedBox(height: Dimensions.height8),
-            TextInput(
-              controller: controller.nameC,
-              onChanged: controller.handleButton(),
-              prefixIcon: const Icon(Icons.person),
-              hintText: "Masukkan nama Anda di sini",
-            ),
-            SizedBox(height: Dimensions.height16),
-
-            // Input Email
-            SmallText(
-              text: "Email",
-              size: Dimensions.font16,
-              color: AppColors.textBlack,
-            ),
-            SizedBox(height: Dimensions.height8),
-            TextInput(
-              controller: controller.emailC,
-              prefixIcon: const Icon(Icons.email_rounded),
-              hintText: "Masukkan email Anda di sini",
-              keyboardType: TextInputType.emailAddress,
-              inputFormatter: "email",
-              readOnly: true,
-            ),
-            SizedBox(height: Dimensions.height16),
-
-            // Input Phone
-            SmallText(
-              text: "Nomor Telepon",
-              size: Dimensions.font16,
-              color: AppColors.textBlack,
-            ),
-            SizedBox(height: Dimensions.height8),
-            TextInput(
-              controller: controller.phoneC,
-              prefixIcon: const Icon(Icons.phone),
-              hintText: "Masukkan nomor telepon Anda",
-              keyboardType: TextInputType.number,
-              prefixText: "+62 ",
-              inputFormatter: "number",
-            ),
-            SizedBox(height: Dimensions.height16),
-
             // Profile Image
-            SmallText(
-              text: "Gambar Profil",
-              size: Dimensions.font16,
-              color: AppColors.textBlack,
-            ),
-            SizedBox(height: Dimensions.height8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircleAvatar(
-                  backgroundImage: user.profileImage == null
-                      ? const AssetImage("assets/images/unknown_person.jpeg")
-                      : NetworkImage(user.profileImage!) as ImageProvider,
-                  backgroundColor: AppColors.grayColor,
-                  radius: Dimensions.height10 * 5,
-                ),
-                OutlinedButton(
-                    onPressed: () {},
-                    child: SmallText(
-                      text: "Upload",
-                      size: Dimensions.font16,
-                      color: AppColors.textBlack,
-                    )),
-              ],
+            GetBuilder<ChangeProfileController>(
+              id: "profileImage",
+              builder: (_) {
+                if (controller.user!.profileImage == null) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.asset(
+                          "assets/images/unknown_person.jpeg",
+                          fit: BoxFit.cover,
+                          width: Dimensions.height10 * 10,
+                          height: Dimensions.height10 * 10,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => controller.uploadProfileImage(),
+                        child: BigText(
+                          text: "Ubah Foto Profil",
+                          size: Dimensions.font20,
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: "assets/images/unknown_person.jpeg",
+                        width: Dimensions.height10 * 10,
+                        height: Dimensions.height10 * 10,
+                        fit: BoxFit.cover,
+                        fadeInDuration: const Duration(milliseconds: 300),
+                        fadeOutDuration: const Duration(milliseconds: 300),
+                        image: controller.user!.profileImage!,
+                        imageErrorBuilder: (c, e, s) {
+                          return Image.asset(
+                            "assets/images/unknown_person.jpeg",
+                            width: Dimensions.height10 * 10,
+                            height: Dimensions.height10 * 10,
+                            fit: BoxFit.cover,
+                          );
+                        },
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () => controller.uploadProfileImage(),
+                      child: BigText(
+                        text: "Ubah Foto Profil",
+                        size: Dimensions.font20,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             SizedBox(height: Dimensions.height16),
+            // INFO PROFILE
+            BigText(
+              text: "Info Profil",
+              size: Dimensions.font20,
+            ),
+            SizedBox(height: Dimensions.height10 * 2),
+
+            // Name
+            GetBuilder<AuthProvider>(
+              id: "updateName",
+              builder: (_) {
+                return EditProfileLine(
+                  onTap: () => Get.toNamed(Routes.UPDATE_NAME),
+                  title: "Nama",
+                  text: _.user!.name!,
+                );
+              },
+            ),
+            SizedBox(height: Dimensions.height10 * 3),
+
+            // Email
+            EditProfileLine(
+              title: "Email",
+              text: controller.authProvider.user!.email!,
+              icon: null,
+            ),
+            SizedBox(height: Dimensions.height10 * 3),
+
+            // PhoneNumber
+            GetBuilder<AuthProvider>(
+              id: "updatePhoneNumber",
+              builder: (_) {
+                return EditProfileLine(
+                  onTap: () => Get.toNamed(Routes.PHONE_REGISTER),
+                  title: "Nomor HP",
+                  text: _.user!.phoneNumber ?? "",
+                );
+              },
+            ),
+            SizedBox(height: Dimensions.height10 * 3),
           ],
         ),
       ),

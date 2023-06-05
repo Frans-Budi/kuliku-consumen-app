@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +16,7 @@ import '../utils/dimensions.dart';
 class AuthProvider extends GetxController {
   UserModel? _user;
   UserModel? get user => _user;
+  set user(UserModel? user) => _user = user;
 
   final box = GetStorage();
 
@@ -121,10 +123,7 @@ class AuthProvider extends GetxController {
         // Jika Belum ada sebelumnya
         await _auth.verifyPhoneNumber(
           phoneNumber: phoneNumber,
-          verificationCompleted: (PhoneAuthCredential credential) async {
-            // await _auth.signInWithCredential(credential);
-            // Get.toNamed(Routes.PHONE_VERIFY);
-          },
+          verificationCompleted: (PhoneAuthCredential credential) async {},
           codeSent: (String verificationId, int? resendToken) {
             this.verificationId.value = verificationId;
             Get.toNamed(Routes.PHONE_VERIFY, arguments: phoneNumber);
@@ -254,11 +253,6 @@ class AuthProvider extends GetxController {
             // Simpan Token ke Local Storage
             box.write("token", "${_user!.token}");
 
-            // Update profile Image
-            await updateProfileImageUrl(
-              profileImage: userCredential!.user!.photoURL,
-              id: idUser,
-            );
             // Cek apakah nomor telepon sudah ada di akunnya
             if (await checkUserPhoneNumber(id: idUser)) {
               // Jika nomor telepon sudah ada sebelumnya -> pindah ke Activity HOME
@@ -296,7 +290,7 @@ class AuthProvider extends GetxController {
         phoneNumber: phoneNumber,
         id: id,
       );
-
+      update(['updatePhoneNumber']);
       _user = user;
 
       return true;
@@ -383,6 +377,30 @@ class AuthProvider extends GetxController {
 
       return true;
     } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> updateName({
+    String? name,
+    int? id,
+  }) async {
+    try {
+      UserModel user = await AuthService().updateName(
+        name: name,
+        id: id,
+      );
+
+      _user = user;
+      update(["updateName"]);
+
+      return true;
+    } catch (e) {
+      _message = await AuthService().updateName(
+        name: name,
+        id: id,
+      );
+
       return false;
     }
   }
